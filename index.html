@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>KAFLA POINT</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  background:linear-gradient(135deg,#000,#011b58,#000);
+  color:white;
+}
+
+/* NAVBAR */
+nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 40px;
+}
+
+.logo{
+  font-size:24px;
+  font-weight:700;
+}
+
+.logo span{
+  color:#500202;
+  text-shadow:0 0 10px rgba(189,15,15,0.6);
+}
+
+nav ul{
+  display:flex;
+  gap:30px;
+  list-style:none;
+  align-items:center;
+}
+
+nav a{
+  text-decoration:none;
+  color:white;
+  opacity:.8;
+  position:relative;
+  transition:.3s;
+}
+
+nav a:hover{
+  opacity:1;
+}
+
+nav a::after{
+  content:"";
+  position:absolute;
+  width:0;
+  height:2px;
+  background:#ff3c3c;
+  left:0;
+  bottom:-5px;
+  transition:.3s;
+}
+
+nav a:hover::after{
+  width:100%;
+}
+
+.order-btn{
+  background:linear-gradient(135deg,#ff3c3c,#ff7a7a);
+  padding:10px 18px;
+  border-radius:6px;
+  font-weight:600;
+}
+
+.order-btn:hover{
+  transform:scale(1.05);
+}
+
+/* HERO */
+.hero{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:60px 40px;
+  min-height:90vh;
+}
+
+.hero-text{
+  max-width:500px;
+  animation:slideLeft 2s ease;
+}
+
+.hero-text h1{
+  font-size:70px;
+  line-height:1;
+  font-weight:800;
+  background:linear-gradient(90deg,#f76363,#a90000);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.hero-text span{
+  color:#ff3c3c;
+}
+
+.hero-text p{
+  margin:20px 0;
+  opacity:.7;
+}
+
+/* BUTTON */
+.btn{
+  display:inline-block;
+  text-decoration:none;
+  background:linear-gradient(135deg,#ff3c3c,#ff7a7a);
+  color:white;
+  padding:12px 25px;
+  border-radius:8px;
+  font-weight:600;
+  transition:.3s;
+}
+
+.btn:hover{
+  transform:translateY(-5px) scale(1.05);
+  box-shadow:
+  0 0 20px rgba(163,0,0,0.7),
+  0 0 40px rgba(145,0,0,0.4);
+}
+
+/* SLIDER */
+.slider{
+  position:relative;
+  width:500px;
+  height:650px;
+  overflow:hidden;
+  border-radius:25px;
+  border:1px solid rgba(255,255,255,0.1);
+  box-shadow:0 20px 50px rgba(0,0,0,0.5);
+  animation:
+  slideRight 2s ease,
+  floatImage 4s ease-in-out infinite;
+}
+
+.slide{
+  position:absolute;
+  width:100%;
+  height:100%;
+  top:0;
+  left:0;
+  object-fit:cover;
+  opacity:0;
+  transition:1s ease-in-out;
+}
+
+.slide.active{
+  opacity:1;
+}
+
+/* STATS */
+.stats{
+  display:flex;
+  justify-content:center;
+  gap:30px;
+  padding:40px;
+  flex-wrap:wrap;
+}
+
+.stat-card{
+  background:rgba(255,255,255,0.05);
+  padding:25px;
+  border-radius:20px;
+  width:220px;
+  text-align:center;
+  backdrop-filter:blur(10px);
+  transition:.3s;
+}
+
+.stat-card:hover{
+  transform:translateY(-10px);
+}
+
+.stat-card h2{
+  color:#ff3c3c;
+  font-size:38px;
+}
+
+.stat-card p{
+  opacity:.7;
+}
+
+/* ANIMATIONS */
+@keyframes floatImage{
+  0%,100%{
+    transform:translateY(0);
+  }
+  50%{
+    transform:translateY(-15px);
+  }
+}
+
+@keyframes slideLeft{
+  from{
+    opacity:0;
+    transform:translateX(-80px);
+  }
+  to{
+    opacity:1;
+    transform:translateX(0);
+  }
+}
+
+@keyframes slideRight{
+  from{
+    opacity:0;
+    transform:translateX(80px);
+  }
+  to{
+    opacity:1;
+    transform:translateX(0);
+  }
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+
+  .hero{
+    flex-direction:column;
+    text-align:center;
+  }
+
+  .hero-text h1{
+    font-size:45px;
+  }
+
+  .slider{
+    width:100%;
+    margin-top:30px;
+  }
+}
+
+@media(max-width:768px){
+
+  .hero{
+    padding:30px 15px;
+  }
+
+  .hero-text h1{
+    font-size:36px;
+  }
+
+  .slider{
+    max-width:100%;
+    aspect-ratio:4/3;
+    margin-top:20px;
+  }
+}
+
+@media(max-width:480px){
+
+  .hero-text h1{
+    font-size:32px;
+  }
+
+  nav ul{
+    flex-wrap:wrap;
+    gap:10px;
+  }
+
+  .slider{
+    height:220px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="logo">KAFLA <span>POINT</span></div>
+
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="menu.html">Menu</a></li>
+    <li><a href="#">Offers</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="order.html" class="order-btn">Order Now</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+
+  <div class="hero-text">
+    <h1>Delicious <span>Food</span></h1>
+
+    <p>
+      Fresh, tasty and delivered fast.
+      Experience the best burgers, pizzas and more.
+    </p>
+
+    <a href="menu.html" class="btn">View Menu</a>
+  </div>
+
+  <div class="slider">
+    <img src="https://i.ibb.co/xSSVCNY6/chrome-10vhtfvpo-K.png" class="slide active">
+
+    <img src="https://i.ibb.co/TDWJ9fwn/chrome-ooidg-IBcn-R.png" class="slide">
+
+    <img src="https://i.ibb.co/sdRjNdFs/chrome-X65-ZQgo-C9-L.png" class="slide">
+  </div>
+
+</section>
+
+<!-- STATS -->
+<section class="stats">
+
+  <div class="stat-card">
+    <h2>500+</h2>
+    <p>Orders Delivered</p>
+  </div>
+
+  <div class="stat-card">
+    <h2>50+</h2>
+    <p>Menu Items</p>
+  </div>
+
+  <div class="stat-card">
+    <h2>4.8★</h2>
+    <p>Customer Rating</p>
+  </div>
+
+</section>
+
+<script>
+const slides = document.querySelectorAll(".slide");
+let index = 0;
+
+setInterval(() => {
+  slides[index].classList.remove("active");
+  index = (index + 1) % slides.length;
+  slides[index].classList.add("active");
+}, 4000);
+</script>
+
+</body>
+</html>
