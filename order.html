@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order - KAFLA POINT</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #0b0f17;
+  color: white;
+}
+
+/* HEADER */
+.header {
+  padding: 15px 20px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* MENU LIST */
+.menu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 20px;
+}
+
+.item {
+  background: #121826;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  gap: 15px;
+  padding: 10px;
+}
+
+.item img {
+  width: 120px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.item-info {
+  flex: 1;
+}
+
+.item h3 {
+  margin: 0;
+}
+
+.price {
+  color: #ff3c3c;
+  font-weight: bold;
+}
+
+.add-btn {
+  background: #ff3c3c;
+  border: none;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* CART BAR */
+.cart-bar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #ff3c3c;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  display: none;
+}
+
+.cart-bar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: linear-gradient(135deg, #600000, #a50a0a);
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  display: none;
+  font-weight: 600;
+}
+
+.cart-bar button {
+  background: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* CART PAGE */
+.cart-page {
+  display: none;
+  padding: 20px;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background: #121826;
+  margin-bottom: 10px;
+  border-radius: 8px;
+}
+
+.confirm-btn {
+  margin-top: 20px;
+  background: #25D366;
+  padding: 12px;
+  border: none;
+  width: 100%;
+  color: white;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* RESPONSIVE */
+@media(max-width:600px){
+  .item {
+    flex-direction: column;
+  }
+
+  .item img {
+    width: 100%;
+    height: 180px;
+  }
+}
+
+.cart-item button {
+  background: #ff3c3c;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cart-item button:hover {
+  background: #ff1c1c;
+}
+
+</style>
+</head>
+
+<body>
+
+  <!-- PAYMENT POPUP -->
+<div id="paymentPopup" style="
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.8);
+justify-content:center;
+align-items:center;
+z-index:999;
+">
+
+  <div style="
+  background:#121826;
+  padding:25px;
+  border-radius:15px;
+  text-align:center;
+  width:90%;
+  max-width:350px;
+  ">
+
+    <h2>Select Payment Method</h2>
+
+    <!-- QR CODE -->
+    <img src="https://i.ibb.co/HfGhNBXp/Discord-H6-Y4v-Tm-Yb-H.png"
+    style="
+    width:220px;
+    border-radius:10px;
+    margin:15px 0;
+    ">
+
+    <p style="opacity:0.7;">
+      Scan QR to pay online
+    </p>
+
+    <!-- ONLINE PAYMENT BUTTON -->
+    <button onclick="paidOnline()" style="
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    background:#25D366;
+    color:white;
+    font-weight:bold;
+    margin-top:10px;
+    cursor:pointer;
+    ">
+      I Paid Online
+    </button>
+
+    <!-- COD BUTTON -->
+    <button onclick="cashOnDelivery()" style="
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    background:#ff3c3c;
+    color:white;
+    font-weight:bold;
+    margin-top:10px;
+    cursor:pointer;
+    ">
+      Cash On Delivery
+    </button>
+
+  </div>
+</div>
+
+<div class="header">🍔 Order Your Food</div>
+
+<!-- MENU ITEMS -->
+<div class="menu-list" id="menuList"></div>
+
+<!-- CART BAR -->
+<div class="cart-bar" id="cartBar">
+  <div>
+    <span id="cartCount">0 items</span> |
+    <span id="cartTotal">₹0</span>
+  </div>
+  <button onclick="openCart()">View Cart ➜</button>
+</div>
+
+<!-- CART PAGE -->
+<div class="cart-page" id="cartPage">
+  <h2>Your Cart</h2>
+  <div id="cartItems"></div>
+  <h3 id="totalPrice"></h3>
+  <button class="confirm-btn" onclick="sendWhatsApp()">Confirm Order</button>
+</div>
+
+<script>
+let menu = [
+  {name: "Veggie Burger", price: 35, img: "https://i.ibb.co/W4hxwPwN/chrome-43l-Mk-Wibu-N.png"},
+  {name: "Cheesy Burger", price: 50, img: "https://i.ibb.co/Vp0m0vDd/chrome-9r3-OLj50jv.png"},
+  {name: "Paneer Burger", price: 60, img: "https://i.ibb.co/dvdw5qK/chrome-w-Er5-Abwl-Rh.png"},
+  {name: "Cheesy Spicy Paneer Burger", price: 80, img: "https://i.ibb.co/k6htWSWc/chrome-ma7p-Rml-Zf-J.png"},
+  {name: "Cold Sandwich", price: 40, img: "https://i.ibb.co/N2pKhDnG/chrome-FVQp-Sk7k98.png"},
+  {name: "Grilled Sandwich", price: 60, img: "https://i.ibb.co/v6VWvgkv/chrome-j-P4-K10-LRNo.png"},
+  {name: "Paneer Sandwich", price: 80, img: "https://i.ibb.co/WQSyzwg/chrome-Bpb-Iy-Wr-LJh.png"},
+  {name: "Cheesy Crispy Sandwich", price: 100, img: "https://i.ibb.co/cKsP3Xm3/chrome-Lm-Cm-ZQHk-PC.png"},
+  {name: "Salted Fries", price: 50, img: "https://i.ibb.co/CgCkCB2/chrome-j-Xv-LGd0r-Ci.png"},
+  {name: "Masala Fries", price: 60, img: "https://i.ibb.co/bgbPfjFd/chrome-omf6-UAah0z.png"},
+  {name: "Peri-Peri Masala Fries", price: 60, img: "https://i.ibb.co/Fq53n6Nd/chrome-2-PKk37-Ps-Ze.png"},
+  {name: "Loaded Fries", price: 80, img: "https://i.ibb.co/0R5RxTs1/chrome-38-Aj1dl-DWj.png"},
+  {name: "White Sauce Pasta", price: 80, img: "https://i.ibb.co/5hKWBsh9/chrome-T4-Sna-KONkx.png"},
+  {name: "Red Sauce Pasta", price: 80, img: "https://i.ibb.co/x8Bh9hpr/chrome-VDICLsis4-S.png"},
+  {name: "Makhni Pasta", price: 90, img: "https://i.ibb.co/wrZbvdf9/chrome-5-Ds-Dz-De-K5-T.png"},
+  {name: "Mix Pasta", price: 100, img: "https://i.ibb.co/MxCQr2PD/chrome-uol2-D3x-VPf.png"},
+  {name: "Veggie Wrap", price: 60, img: "https://i.ibb.co/svFKjmh3/chrome-BX3q7-F6w-Bn.png"},
+  {name: "Loaded Paneer Wrap", price: 70, img: "https://i.ibb.co/bMcJYSd7/chrome-Maj-Dg-Ybcha.png"},
+  {name: "Cheesy Spicy Wrap", price: 80, img: "https://i.ibb.co/YrJnmGz/chrome-qm-FQqlqj25.png"},
+  {name: "Garlic Bread", price: 40, img: "https://i.ibb.co/n8tZ6RB0/chrome-B40-Goujd-Ey.png"},
+  {name: "Paneer Patty", price: 60, img: "https://i.ibb.co/nMNKxbvD/chrome-IBFINCNSYh.png"},
+  {name: "Veg Bread", price: 70, img: "https://i.ibb.co/4R6v9Y6R/chrome-Lu-ZPE3yt-P7.png"},
+  {name: "Paneer Puffs", price: 70, img: "https://i.ibb.co/NnHpVQQH/chrome-w-Gatne-CCKQ.png"},
+  {name: "Cheese Bread Roll", price: 80, img: "https://i.ibb.co/cXFVdWCY/chrome-WVp-YRy4-Gn-W.png"},
+  {name: "Veg Salad", price: 90, img: "https://i.ibb.co/JjKdfkfQ/chrome-D31g4-SPxv-A.png"},
+  {name: "Paneer Salad", price: 100, img: "https://i.ibb.co/23rMrXhB/chrome-r-VDja7-Le-XJ.png"},
+  {name: "Vanilla Shake", price: 60, img: "https://i.ibb.co/CsPNyNbN/chrome-4uy-Na6-MNk-W.png"},
+  {name: "Strawberry Shake", price: 60, img: "https://i.ibb.co/twNyQp5S/chrome-WQq-PVs-RWlj.png"},
+  {name: "Chocolate Shake", price: 60, img: "https://i.ibb.co/BV72Vny4/chrome-y-Sb-B1d8-Mtf.png"},
+  {name: "Oreo Shake", price: 70, img: "https://i.ibb.co/7dbqw3jG/chrome-K0-GRYMRo-M9.png"},
+  {name: "Butter Scotch Shake", price: 70, img: "https://i.ibb.co/nsQhBBsC/chrome-RKUAMJz-UWg.png"},
+  {name: "Kit Kat Shake", price: 70, img: "https://i.ibb.co/GLmvmQT/chrome-KXi-MIqk-Vku.png"},
+  {name: "Cold Coffee", price: 60, img: "https://i.ibb.co/vFLfqt9/chrome-e-Kwd-Pjf-IA7.png"},
+  {name: "Hot Coffee", price: 40, img: "https://i.ibb.co/Djw59TM/chrome-2-FN0-AOxn-Jq.png"},
+  {name: "Masala Tea", price: 25, img: "https://i.ibb.co/XfsXZzhv/chrome-uqyr-JYka87.png"},
+  {name: "Cold Drink", price: 25, img: "https://i.ibb.co/bg935rhd/chrome-ex-IQ32a-B8-R.png"},
+  {name: "Fresh Lemon Soda", price: 40, img: "https://i.ibb.co/NnWsbcxM/chrome-T0qjdl-CCQ9.png"},
+  {name: "Virgin Mozzito", price: 70, img: "https://i.ibb.co/MyRWpDQD/chrome-l3-Crk-Uo8f-X.png"},
+  {name: "Vanilla Ice-Cream", price: 35, img: "https://i.ibb.co/3ywbjPC6/chrome-JLb-VFS4-Yze.png"},
+  {name: "Strawberry Ice-Cream", price: 35, img: "https://i.ibb.co/C3Wc1Sxv/chrome-w02hf4e-ERq.png"},
+  {name: "Chocolate Ice-Cream", price: 35, img: "https://i.ibb.co/XxJpgDnS/chrome-s5h37-Nbgx-P.png"},
+];
+
+let cart = [];
+
+let menuList = document.getElementById("menuList");
+
+menu.forEach((item, index) => {
+  menuList.innerHTML += `
+    <div class="item">
+      <img src="${item.img}">
+      <div class="item-info">
+        <h3>${item.name}</h3>
+        <div class="price">₹${item.price}</div>
+        <button class="add-btn" onclick="addToCart(${index})">Add +</button>
+      </div>
+    </div>
+  `;
+});
+
+function addToCart(index) {
+  cart.push(menu[index]);   // add item
+  updateCartUI();           // update UI
+}
+
+function updateCartUI() {
+  const cartBar = document.getElementById("cartBar");
+  const cartCount = document.getElementById("cartCount");
+  const cartTotal = document.getElementById("cartTotal");
+
+  cartBar.style.display = "flex";
+
+  let total = 0;
+
+  for (let i = 0; i < cart.length; i++) {
+    total += Number(cart[i].price);   // ✅ force number
+  }
+
+  cartCount.innerText = cart.length + " items";
+  cartTotal.innerText = "₹" + total;
+}
+
+function openCart() {
+  document.getElementById("cartPage").style.display = "block";
+  document.getElementById("menuList").style.display = "none";
+  document.getElementById("cartBar").style.display = "none";
+
+  let cartItems = document.getElementById("cartItems");
+  cartItems.innerHTML = "";
+
+  let total = 0;
+
+  cart.forEach(item => {
+    total += item.price;
+    cartItems.innerHTML += `
+      <div class="cart-item">
+        <span>${item.name}</span>
+        <span>₹${item.price}</span>
+      </div>
+    `;
+  });
+
+  document.getElementById("totalPrice").innerText = "Total: ₹" + total;
+}
+
+function openCart() {
+  document.getElementById("cartPage").style.display = "block";
+  document.getElementById("menuList").style.display = "none";
+  document.getElementById("cartBar").style.display = "none";
+
+  let cartItems = document.getElementById("cartItems");
+  cartItems.innerHTML = "";
+
+  let total = 0;
+
+  // ✅ GROUP ITEMS
+  let grouped = {};
+
+  cart.forEach(item => {
+    if (grouped[item.name]) {
+      grouped[item.name].qty += 1;
+    } else {
+      grouped[item.name] = {
+        price: item.price,
+        qty: 1
+      };
+    }
+  });
+
+  // ✅ DISPLAY GROUPED ITEMS
+  for (let name in grouped) {
+    let item = grouped[name];
+    let itemTotal = item.price * item.qty;
+    total += itemTotal;
+
+cartItems.innerHTML += `
+  <div class="cart-item">
+    <div>
+      ${name} x${item.qty}
+    </div>
+
+    <div style="display:flex; gap:10px; align-items:center;">
+      <button onclick="removeOne('${name}')" style="padding:4px 8px;">−</button>
+      <span>₹${itemTotal}</span>
+      <button onclick="addOne('${name}')" style="padding:4px 8px;">+</button>
+    </div>
+  </div>
+`;
+  }
+
+  document.getElementById("totalPrice").innerText = "Total: ₹" + total;
+}
+
+function sendWhatsApp() {
+  let text = "Order Details:%0A";
+  let total = 0;
+
+  cart.forEach(item => {
+    text += item.name + " - ₹" + item.price + "%0A";
+    total += item.price;
+  });
+
+  text += "%0ATotal: ₹" + total;
+
+  window.open("https://wa.me/91XXXXXXXXXX?text=" + text, "_blank");
+}
+
+function sendWhatsApp() {
+  let number = "9855891578"; // 👉 replace with your number (no +, no spaces)
+
+  let message = "🛒 *New Order - KAFLA POINT*%0A%0A";
+
+  let total = 0;
+
+  // GROUP ITEMS (same as cart view)
+  let grouped = {};
+
+  cart.forEach(item => {
+    if (grouped[item.name]) {
+      grouped[item.name].qty += 1;
+    } else {
+      grouped[item.name] = {
+        price: item.price,
+        qty: 1
+      };
+    }
+  });
+
+  for (let name in grouped) {
+    let item = grouped[name];
+    let itemTotal = item.price * item.qty;
+    total += itemTotal;
+
+    message += `• ${name} x${item.qty} = ₹${itemTotal}%0A`;
+  }
+
+  message += `%0A💰 *Total: ₹${total}*`;
+
+  // 👉 OPEN WHATSAPP WITH MESSAGE
+  let url = `https://wa.me/${number}?text=${message}`;
+
+  window.open(url, "_blank");
+}
+
+function removeOne(name) {
+  for (let i = 0; i < cart.length; i++) {
+    if (cart[i].name === name) {
+      cart.splice(i, 1); // remove 1 item
+      break;
+    }
+  }
+
+  openCart();      // refresh cart page
+  updateCartUI();  // update bottom bar
+}
+
+function addOne(name) {
+  let item = menu.find(i => i.name === name);
+  cart.push(item);
+
+  openCart();      // refresh cart page
+  updateCartUI();  // update bottom bar
+}
+
+function sendWhatsApp() {
+
+  let number = "9855891578";
+
+  // Ask for live location
+  navigator.geolocation.getCurrentPosition(function(position) {
+
+    let lat = position.coords.latitude;
+    let lng = position.coords.longitude;
+
+    let locationLink = `https://maps.google.com/?q=${lat},${lng}`;
+
+    let message = "🍔 *New Order - KAFLA POINT*%0A%0A";
+
+    let total = 0;
+
+    let grouped = {};
+
+    // GROUP ITEMS
+    cart.forEach(item => {
+      if (grouped[item.name]) {
+        grouped[item.name].qty += 1;
+      } else {
+        grouped[item.name] = {
+          price: item.price,
+          qty: 1
+        };
+      }
+    });
+
+    // ADD ITEMS TO MESSAGE
+    for (let name in grouped) {
+
+      let item = grouped[name];
+      let itemTotal = item.price * item.qty;
+
+      total += itemTotal;
+
+      message += `• ${name} x${item.qty} = ₹${itemTotal}%0A`;
+    }
+
+    // TOTAL
+    message += `%0A💰 *Total: ₹${total}*%0A%0A`;
+
+    // LOCATION
+    message += `📍 *Customer Live Location:*%0A${locationLink}`;
+
+    let url = `https://wa.me/${number}?text=${message}`;
+
+    window.open(url, "_blank");
+
+  },
+
+  // IF USER DENIES LOCATION
+  function(error) {
+    alert("Please allow location access for delivery.");
+  });
+
+}
+
+let baseMessage = "";
+let whatsappNumber = "9855891578";
+
+function sendWhatsApp() {
+
+  navigator.geolocation.getCurrentPosition(function(position) {
+
+    let lat = position.coords.latitude;
+    let lng = position.coords.longitude;
+
+    let locationLink =
+      `https://maps.google.com/?q=${lat},${lng}`;
+
+    baseMessage =
+      "🍔 *New Order - KAFLA POINT*%0A%0A";
+
+    let total = 0;
+
+    let grouped = {};
+
+    // GROUP ITEMS
+    cart.forEach(item => {
+
+      if (grouped[item.name]) {
+
+        grouped[item.name].qty += 1;
+
+      } else {
+
+        grouped[item.name] = {
+          price: item.price,
+          qty: 1
+        };
+
+      }
+
+    });
+
+    // ITEMS
+    for (let name in grouped) {
+
+      let item = grouped[name];
+
+      let itemTotal = item.price * item.qty;
+
+      total += itemTotal;
+
+      baseMessage +=
+      `• ${name} x${item.qty} = ₹${itemTotal}%0A`;
+
+    }
+
+    // TOTAL
+    baseMessage +=
+    `%0A💰 *Total: ₹${total}*%0A%0A`;
+
+    // LOCATION
+    baseMessage +=
+    `📍 *Customer Location:*%0A${locationLink}%0A%0A`;
+
+    // SHOW PAYMENT POPUP
+    document.getElementById("paymentPopup").style.display = "flex";
+
+  },
+
+  function(error) {
+
+    alert("Please allow location access.");
+
+  });
+
+}
+
+// ONLINE PAYMENT
+function paidOnline() {
+
+  let finalMessage =
+    baseMessage +
+    "✅ *Payment Method:* Paid Online";
+
+  let url =
+    `https://wa.me/${whatsappNumber}?text=${finalMessage}`;
+
+  window.open(url, "_blank");
+
+}
+
+// CASH ON DELIVERY
+function cashOnDelivery() {
+
+  let finalMessage =
+    baseMessage +
+    "💵 *Payment Method:* Cash On Delivery";
+
+  let url =
+    `https://wa.me/${whatsappNumber}?text=${finalMessage}`;
+
+  window.open(url, "_blank");
+
+}
+
+</script>
+
+</body>
+</html>

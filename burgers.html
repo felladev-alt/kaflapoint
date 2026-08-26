@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Burgers</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #0b0f17;
+  color: white;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 60px;
+}
+
+.navbar div:last-child {
+  display: flex;
+  gap: 30px;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+.title {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 30px;
+}
+
+.card img {
+  width: 100%;
+  height: 300px;        
+  object-fit: cover;    
+  border-radius: 40px;
+}
+
+.price {
+  color: #ff3c3c;
+  font-size: 30px;
+}
+
+.title h1 {
+  font-size: 60px;
+  letter-spacing: 2px;
+  font-weight: 800;
+}
+
+/* 📱 MOBILE RESPONSIVE */
+@media (max-width: 768px) {
+
+  .navbar {
+    padding: 15px 20px;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+
+  .navbar div:last-child {
+    gap: 20px;
+  }
+
+  .title h1 {
+    font-size: 35px;
+  }
+
+  .menu-grid {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 15px;
+    gap: 15px;
+  }
+
+  .card img {
+    height: 180px;
+    border-radius: 20px;
+  }
+
+  .price {
+    font-size: 18px;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+  <div>KAFLA <span style="color:#ff3c3c;">POINT</span></div>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="menu.html">Menu</a>
+  </div>
+</div>
+
+<div class="title">
+  <h1>Burgers</h1>
+</div>
+
+<section class="menu-grid">
+
+<div class="card">
+  <img src="https://i.ibb.co/W4hxwPwN/chrome-43l-Mk-Wibu-N.png" alt="Burger">
+  <h3>Veggie Burger</h3>
+  <p class="price">₹35</p>
+</div>
+
+<div class="card">
+  <img src="https://i.ibb.co/Vp0m0vDd/chrome-9r3-OLj50jv.png" alt="Burger">
+  <h3>Chessy Burger</h3>
+  <p class="price">₹50</p>
+</div>
+
+<div class="card">
+  <img src="https://i.ibb.co/dvdw5qK/chrome-w-Er5-Abwl-Rh.png" alt="Burger">
+  <h3>Paneer Burger</h3>
+  <p class="price">₹60</p>
+</div>
+
+<div class="card">
+  <img src="https://i.ibb.co/k6htWSWc/chrome-ma7p-Rml-Zf-J.png" alt="Burger">
+  <h3>Cheesy Spicy Paneer Burger</h3>
+  <p class="price">₹80</p>
+</div>
+
+</section>
+
+</body>
+</html>

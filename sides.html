@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Burgers</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #0b0f17;
+  color: white;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 60px;
+}
+
+.navbar div:last-child {
+  display: flex;
+  gap: 30px;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+.title {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 30px;
+}
+
+.card img {
+  width: 100%;
+  height: 300px;        
+  object-fit: cover;    
+  border-radius: 40px;
+}
+
+.price {
+  color: #ff3c3c;
+  font-size: 30px;
+}
+
+.title h1 {
+  font-size: 60px;
+  letter-spacing: 2px;
+  font-weight: 800;
+}
+
+/* 📱 MOBILE RESPONSIVE */
+@media (max-width: 768px) {
+
+  .navbar {
+    padding: 15px 20px;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+
+  .navbar div:last-child {
+    gap: 20px;
+  }
+
+  .title h1 {
+    font-size: 35px;
+  }
+
+  .menu-grid {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 15px;
+    gap: 15px;
+  }
+
+  .card img {
+    height: 180px;
+    border-radius: 20px;
+  }
+
+  .price {
+    font-size: 18px;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+  <div>KAFLA <span style="color:#ff3c3c;">POINT</span></div>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="menu.html">Menu</a>
+  </div>
+</div>
+
+<div class="title">
+  <h1>Sides</h1>
+</div>
+
+<section class="menu-grid">
+
+<div class="card">
+  <img src="https://i.ibb.co/n8tZ6RB0/chrome-B40-Goujd-Ey.png" alt="Burger">
+  <h3>Garlic Bread</h3>
+  <p class="price">₹40</p>
+</div>
+
+<div class="card">
+  <img src="https://i.ibb.co/nMNKxbvD/chrome-IBFINCNSYh.png" alt="Burger">
+  <h3>Paneer Patty</h3>
+  <p class="price">₹60</p>
+</div>
+
+<div class="card">
+  <img src="https://i.ibb.co/4R6v9Y6R/chrome-Lu-ZPE3yt-P7.png" alt="Burger">
+  <h3>Veg Bread</h3>
+  <p class="price">₹70</p>
+</div>
+
+<div class="card">
+  <img src="https://i.ibb.co/NnHpVQQH/chrome-w-Gatne-CCKQ.png" alt="Burger">
+  <h3>Paneer Puffs</h3>
+  <p class="price">₹70</p>
+</div>
+
+<div class="card">
+  <img src="https://i.ibb.co/cXFVdWCY/chrome-WVp-YRy4-Gn-W.png" alt="Burger">
+  <h3>Cheese Bread Roll</h3>
+  <p class="price">₹80</p>
+</div>
+
+<div class="card">
+  <img src="https://i.ibb.co/JjKdfkfQ/chrome-D31g4-SPxv-A.png" alt="Burger">
+  <h3>Veg Salad</h3>
+  <p class="price">₹90</p>
+</div>
+
+<div class="card">
+  <img src="https://i.ibb.co/23rMrXhB/chrome-r-VDja7-Le-XJ.png" alt="Burger">
+  <h3>Paneer Salad</h3>
+  <p class="price">₹100</p>
+</div>
+
+</section>
+
+</body>
+</html>

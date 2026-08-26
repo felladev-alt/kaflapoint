@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menu - KAFLA POINT</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #000000, #011b58, #000000);
+  color: white;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 60px;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.logo span {
+  color: #ff3c3c;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin-left: 20px;
+  opacity: 0.8;
+}
+
+nav a:hover {
+  opacity: 1;
+}
+
+/* TITLE */
+.title {
+  text-align: center;
+  margin: 40px 0;
+}
+
+.title h1 {
+  font-size: 50px;
+}
+
+.title span {
+  color: #ff3c3c;
+}
+
+/* MENU GRID */
+.menu {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  padding: 30px;
+  gap: 20px;
+}
+
+.card {
+  background: linear-gradient(135deg, #4f5da0, #1c3a80, #000a49);
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+  transition: 0.3s;
+  text-decoration: none;
+  color: white;
+  display: block;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+}
+
+.card img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.card h3 {
+  margin: 15px 0 5px;
+}
+
+.price {
+  color: #ff3c3c;
+  font-weight: 600;
+}
+
+.btn {
+  margin-top: 10px;
+  padding: 10px 20px;
+  border: none;
+  background: #ff3c3c;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #ff1c1c;
+}
+
+/* 📱 MOBILE RESPONSIVE */
+@media (max-width: 768px) {
+
+  nav {
+    padding: 15px 20px;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  nav div {
+    margin-top: 5px;
+  }
+
+  .title h1 {
+    font-size: 32px;
+  }
+
+  .menu {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 15px;
+    gap: 15px;
+  }
+
+  .card {
+    padding: 15px;
+  }
+
+}
+
+.card {
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+
+.card:hover img {
+  transform: scale(1.08);
+  transition: 0.3s;
+}
+
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="logo">KAFLA <span>POINT</span></div>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="menu.html">Menu</a>
+  </div>
+</nav>
+
+<!-- TITLE -->
+<div class="title">
+  <h1>Our <span>Menu</span></h1>
+</div>
+
+<!-- MENU ITEMS -->
+<section class="menu">
+
+  <a href="burgers.html" class="card">
+    <img src="https://i.ibb.co/fGx6nYbV/chrome-2-Pvtkof-PYe.png">
+    <h3>Burgers</h3>
+  </a>
+
+  <a href="sandwich.html" class="card">
+    <img src="https://i.ibb.co/nhR3zc4/chrome-a-Uk0-Bx6-Zk4.png">
+    <h3>Sandwich</h3>
+  </a>
+
+  <a href="fries.html" class="card">
+    <img src="https://i.ibb.co/VpcMgyX7/chrome-Xn-JXd-An8n6.png">
+    <h3>Fries</h3>
+  </a>
+
+  <a href="pasta.html" class="card">
+    <img src="https://i.ibb.co/4nGyvrv8/chrome-Wci2s-XJSq-U.png">
+    <h3>Pasta</h3>
+  </a>
+
+  <a href="wraps.html" class="card">
+    <img src="https://i.ibb.co/7T0TSxk/chrome-i-L3-OLm-E80-F.png">
+    <h3>Wraps</h3>
+  </a>
+
+  <a href="sides.html" class="card">
+    <img src="https://i.ibb.co/G4VHcPT1/chrome-v1-T465hg-NP.png">
+    <h3>Sides</h3>
+  </a>
+
+  <a href="shakes.html" class="card">
+    <img src="https://i.ibb.co/Cptwh28T/chrome-QQ2-FEe-Ia-Mf.png">
+    <h3>Shakes</h3>
+  </a>
+
+  <a href="drinks.html" class="card">
+    <img src="https://i.ibb.co/d0HHTZPT/chrome-AKLl8d-Lg-Ul.png">
+    <h3>Drinks</h3>
+  </a>
+
+  <a href="mocktails.html" class="card">
+    <img src="https://i.ibb.co/zTKG7TYV/chrome-k9o-K2-IUj1u.png">
+    <h3>Mocktails</h3>
+  </a>
+
+  <a href="icecream.html" class="card">
+    <img src="https://i.ibb.co/svxdgyvy/chrome-g-Q5lb-Qcjji.png">
+    <h3>Ice Cream</h3>
+  </a>
+
+  <a href="pizzas.html" class="card">
+    <img src="https://i.ibb.co/ZzF5d26L/chrome-q-WPl7-Mr8-Pc.png">
+    <h3>Pizzas</h3>
+  </a>
+
+</section>
